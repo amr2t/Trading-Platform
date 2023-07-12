@@ -1,0 +1,30 @@
+h1{
+    margin-top:10%;
+}
+
+#cover {
+    background: #222 url("/assets/pxfuel.jpg") center center ;
+    background-size: 65%;
+    height: 50%;
+    text-align: center;
+    align-items: center;
+    position: relative;
+}
+
+#cover-caption {
+    width: 100%;
+    position: relative;
+    z-index: 4;
+}
+
+form:before {
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.3);
+    z-index: -1;
+    border-radius: 10px;
+}
