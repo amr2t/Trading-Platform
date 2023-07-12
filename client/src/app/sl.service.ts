@@ -56,10 +56,4 @@ export class BackService {
   signup(email:any,password:any):Observable<object>{
     return this._http.post("http://localhost:3000/signup",{email:email,password:password});
   }
-
-// ******************* RESET PASSWORD ***********************************
-
-  resetpassword(email:any):Observable<object>{
-    return this._http.get(`http://localhost:3000/resetpassword?email=${email}`);
-  }
 }
