@@ -6,23 +6,23 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-    @Table(name = "holdings")
-    public class holding {
+@Table(name = "holdings")
+public class holding {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @ManyToOne
-        @JoinColumn(name = "portfolio_id")
-        private portfolio portfolio;
+    @ManyToOne
+    @JoinColumn(name = "portfolio_id")
+    private portfolio portfolio;
 
-        @ManyToOne
-        @JoinColumn(name = "stock_symbol")
-        private stock stock;
-        private int quantity;
-        private BigDecimal purchasePrice;
-        private LocalDate purchaseDate;
+    @ManyToOne
+    @JoinColumn(name = "stock_symbol")
+    private stock stock;
+    private int quantity;
+    private BigDecimal purchasePrice;
+    private LocalDate purchaseDate;
 
     public holding() {
     }

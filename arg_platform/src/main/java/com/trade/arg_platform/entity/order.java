@@ -1,7 +1,7 @@
 package com.trade.arg_platform.entity;
 
+
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ public class order {
 
         @ManyToOne
         @JoinColumn(name = "user_id")
-        private User user;
+        private user user;
 
         @ManyToOne
         @JoinColumn(name = "stock_symbol")
@@ -28,7 +28,7 @@ public class order {
         private BigDecimal price;
         private LocalDateTime orderDateTime;
 
-    public order(Long id, User user, com.trade.arg_platform.entity.stock stock, int quantity, BigDecimal price, LocalDateTime orderDateTime) {
+    public order(Long id, user user, com.trade.arg_platform.entity.stock stock, int quantity, BigDecimal price, LocalDateTime orderDateTime) {
         this.id = id;
         this.user = user;
         this.stock = stock;
@@ -48,11 +48,11 @@ public class order {
         this.id = id;
     }
 
-    public User getUser() {
+    public user getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(user user) {
         this.user = user;
     }
 

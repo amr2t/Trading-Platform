@@ -16,10 +16,10 @@ public class stock {
     private String sector;
     private String industry;
 
-    @OneToMany
+    @OneToMany(mappedBy = "stock")
     private List<holding> holdingList;
 
-    @OneToMany
+    @OneToMany(mappedBy = "stock")
     private List<order> orderList;
 
     public stock() {

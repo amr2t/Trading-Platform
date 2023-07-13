@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="USER")
+@Table(name="Trader")
 public class user {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,7 +14,7 @@ public class user {
     private String email;
     private String password;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "userList")
     private List<portfolio> portfolioList;
 
     @OneToMany

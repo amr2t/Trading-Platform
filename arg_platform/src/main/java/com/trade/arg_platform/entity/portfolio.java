@@ -1,11 +1,11 @@
 package com.trade.arg_platform.entity;
 
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 
 import java.util.List;
 
 @Entity
+@Table(name = "portfolio")
 public class portfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,19 +13,19 @@ public class portfolio {
     private String name;
     private String desc;
 
-    @OneToMany
+    @OneToMany(mappedBy = "portfolio")
     private List<holding> holdingList;
 
 
-    @ManyToMany
-    @JoinColumn(name = "user_uid")
-    private User user;
+    @ManyToMany(mappedBy = "portfolioList")
+    private List<user> userList;
 
-    public portfolio(Long id, String name, String desc, User user) {
+    public portfolio(Long id, String name, String desc, List<holding> holdingList, List<user> userList) {
         this.id = id;
         this.name = name;
         this.desc = desc;
-        this.user = user;
+        this.holdingList = holdingList;
+        this.userList = userList;
     }
 
     public portfolio() {
@@ -55,13 +55,22 @@ public class portfolio {
         this.desc = desc;
     }
 
-    public User getUser() {
-        return user;
+    public List<holding> getHoldingList() {
+        return holdingList;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setHoldingList(List<holding> holdingList) {
+        this.holdingList = holdingList;
     }
+
+    public List<user> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<user> userList) {
+        this.userList = userList;
+    }
+
 
     @Override
     public String toString() {
@@ -69,7 +78,8 @@ public class portfolio {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
-                ", user=" + user +
+                ", holdingList=" + holdingList +
+                ", userList=" + userList +
                 '}';
     }
 }
