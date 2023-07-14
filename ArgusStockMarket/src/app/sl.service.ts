@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
+@Injectable({        //Service instance inject karega jaha jaroorat hai.
+  providedIn: 'root'  // root dene se poore app mai kahi bhi inject kar sakte hai.
 })
 export class BackService {
 
   status=false;
   email = "";
-  constructor(private _http:HttpClient) {}
+  constructor(private _http:HttpClient) {}     //Isse Service http request use kar k server se communicate kar sakta hai.
 
   communicatemessage(msg:any){
     console.log("Communicate message is called");

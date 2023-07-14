@@ -21,12 +21,17 @@ export class HomeComponent implements OnInit{
   click = 0;
   price = 0;
   pl: any;
-  stocknames = [{ name: "Google", sname: "goog" },
-  { name: "IBM", sname: "IBM" }, { name: "Jhonson and Jhonson", sname: "jnj" },
-  { name: "Apple, Inc.", sname: "aapl" }, { name: "Microsoft Corporation", sname: "msft" },
-  { name: "Amazon.com Inc.", sname: "amzn" }, { name: "NVIDIA Corporation", sname: "nvda" },
-  { name: "JPMorgan Chase & Co.", sname: "jpm" }, { name: "Visa, Inc.", sname: "v" },
-  { name: "MasterCard Inc.", sname: "ma" }, { name: "Tesla, Inc.", sname: "tsla" }]
+  stocknames = [
+    { name: "HDFC Bank", sname: "hdb" },
+    { name: "ICICI Bank", sname: "ibn" },
+    { name: "Bank Of America", sname: "bac" },
+    { name: "Goldman Sachs", sname: "gs" },
+    { name: "HSBC Holdings", sname: "hsbc" },
+    { name: "Cisco Systems", sname: "csco" },
+    { name: "AT & T Inc.", sname: "t" },
+    { name: "Duke Energy Corperations", sname: "duk" },
+    { name: "Vistara Corperation", sname: "vst" },
+    { name: "Adobe Inc.", sname: "adbe" }]
   
   constructor(private backservice: BackService, private router: Router) {
   }
@@ -58,7 +63,7 @@ export class HomeComponent implements OnInit{
     })
     get.then((value) => {
       this.val$ = value;
-      this.price = parseInt(this.val$["Global Quote"]["05. price"]) * 79;
+      this.price = parseInt(this.val$["Global Quote"]["05. price"]) * 82.17;
     })
   }
 
@@ -76,7 +81,7 @@ export class HomeComponent implements OnInit{
     })
     get.then((value) => {
       this.val$ = value;
-      pricef = Form.value.qty * parseInt(this.val$["Global Quote"]["05. price"]) * 79;
+      pricef = Form.value.qty * parseInt(this.val$["Global Quote"]["05. price"]) * 82.17;
       const get1 = new Promise<any>((resolve, _reject) => {
         this.backservice.adduser(this.email, Form.value.stock, Form.value.qty, pricef).subscribe(
           {
