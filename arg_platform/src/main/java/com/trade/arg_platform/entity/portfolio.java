@@ -1,5 +1,6 @@
 package com.trade.arg_platform.entity;
 
+
 import jakarta.persistence.*;
 
 import java.util.List;

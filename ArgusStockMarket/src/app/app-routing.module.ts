@@ -19,7 +19,7 @@ const routes: Routes =
 
 },
 {
-  path:'login',
+  path:'signin',
   component:SigninComponent
 },
 {

@@ -12,7 +12,7 @@ export class OptionpageComponent {
   ngOnInit(): void {}
   
   tologin(){
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/signin');
   }
   tosignup(){
     this.router.navigateByUrl('/signup');
