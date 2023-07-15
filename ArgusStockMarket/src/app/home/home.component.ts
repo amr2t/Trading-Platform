@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit{
 
   title = 'front';
   val$: any;
-  chprice: any;
   stock = "";
   status$ = "";
   myForm!: FormGroup;
