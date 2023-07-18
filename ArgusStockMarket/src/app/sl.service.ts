@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({        //Service instance inject karega jaha jaroorat hai.
   providedIn: 'root'  // root dene se poore app mai kahi bhi inject kar sakte hai.
@@ -18,9 +19,22 @@ export class BackService {
 
   // ****************** GET PRICE**************************************
   
-  getprice(name:any):Observable<object>{
-    console.log("getprice service function is called"); 
-    return this._http.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${name}&apikey=TM0KKBA3TUNIU9US`); 
+  // getprice(name:any):Observable<object>{
+  //   console.log("getprice service function is called"); 
+  //   console.log(this._http.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${name}&apikey=TM0KKBA3TUNIU9US`)) 
+  //   return this._http.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${name}&apikey=TM0KKBA3TUNIU9US`);
+    
+  // }
+
+  getprice(name: any): Observable<object> {
+    console.log("getprice service function is called");
+    const apiUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${name}&apikey=TM0KKBA3TUNIU9US`;
+  
+    return this._http.get(apiUrl).pipe(
+      tap((response: any) => {
+        console.log("Response from API:", response);
+      })
+    );
   }
 
 // ********************* ADDUSER **************************************

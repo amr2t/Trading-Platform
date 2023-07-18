@@ -1,82 +1,146 @@
-<section id="cover" class="min-vh-100">
-  <div id="cover-caption">
-    <div class="container ">
-      <!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-  {
-  "symbols": [
-    {
-      "description": "HDFC Bank Ltd.",
-      "proName": "NYSE:HDB"
-    },
-    {
-      "description": "ICICI Bank",
-      "proName": "NYSE:IBN"
-    },
-    {
-      "description": "Goldman Sachs",
-      "proName": "NYSE:GS"
-    },
-    {
-      "description": "Bank Of America",
-      "proName": "NYSE:BAC"
-    },
-    {
-      "description": "HSBC Holdings",
-      "proName": "NYSE:HSBC"
-    },
-    {
-      "description": "Cisco Systems",
-      "proName": "NASDAQ:CSCO"
-    },
-    {
-      "description": "AT & T Inc.",
-      "proName": "NYSE:T"
-    },
-    {
-      "description": "Duke Energy Corperation",
-      "proName": "NYSE:DUK"
-    },
-    {
-      "description": "Vistara Corporation",
-      "proName": "NYSE:VST"
-    },
-    {
-      "description": "Adobe Inc.",
-      "proName": "NASDAQ:ADBE"
-    }
-  ],
-  "showSymbolLogo": true,
-  "colorTheme": "light",
-  "isTransparent": false,
-  "displayMode": "adaptive",
-  "locale": "in"
-}
-  </script>
-</div>
-<!-- TradingView Widget END -->
+<div class="cover">
+  <div class="cover-caption">
+    <button type="button" (click)="logout()" class="btn btn-outline-light pull-left"> LOGOUT </button>
+    <h1 class="display-4 py-2 text-truncate"> BUY & SELL </h1>
+    <div class="container">
+      <div class="fsr">
+        <div class="frm">
+          <form  id="frmo" class="justify-content-center" [formGroup]="myForm" (ngSubmit)="add_userdetail(myForm)">
+            <!-- <div class="form-group --stockname">
+              <label>Stock Name</label>
+              <select style="color:black" [(ngModel)]="stck" class="form-control custom-select col-sm-4" formControlName="stock" name="stock" required text-color="black">
+                <option value="" disabled selected>Select A Stock</option>
+                <option *ngFor="let stockname of stocknames" [value]="stockname.proname">{{stockname.name}}</option>
+              </select>
+            </div> -->
+            <div class="form-group --stockname">
+              <label>Stock Name</label>
+              <select [(ngModel)]="stck" class="form-control custom-select col-sm-4" formControlName="stock" name="stock" required>
+                <option value="" disabled selected>Select A Stock</option>
+                <option *ngFor="let stockname of stocknames" [value]="stockname.proname">{{stockname.name}}</option>
+              </select>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col">
-        <div class="row text-white">
-          <div class=" form p-4">
-            <h1 class="display-4 py-2 text-truncate"> STATUS </h1>
-            <ul class="list-group" id="stocklist"> </ul>
-            
             <p></p>
-            
-            <div id="overall"></div> 
+              
+            <div class="form-group --quantity">
+              <label for="floatingSelect">Quantity</label>
+              <input type="number" class="form-control col-sm-4" name="qty" formControlName="qty" min="1">
+            </div>
+
+            <div class="cl-btn">
+              <button type="submit" class="btn btn-success btn-lg mt-3 mx-3" [disabled]="myForm.invalid"> BUY </button>
+              <button type="button" (click)="sellstock(myForm)" [disabled]="myForm.invalid" id="btnsubmit" class="btn btn-danger btn-lg mt-3 ml-3 mx-3 --sell" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"> SELL </button>
+              <button type="button" (click)="show_price(myForm)" [disabled]="myForm.get('stock')?.invalid" id="btnsubmit1" class="btn btn-primary btn-lg mt-3 ml-3 mx-3 --checkprice" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample1" aria-expanded="false" aria-controls="collapseWidthExample1"> CHECK PRICE </button>
+              <button type="button" (click)="status()" class="btn btn-dark btn-lg mt-3 mx-3 --status"> STATUS </button>                        
+                  
+              <p></p>  
+              <div style="min-height: 120px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                  <ul class="list-group" id="pl"> </ul>
+                </div>
+              </div>
+                
+              <p></p>
+                
+              <div style="min-height: 120px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample1">
+                  <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">Stock price: {{price}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="grph-ttw" >
+          <div class="ttw">
+            <div class="tradingview-widget-container">
+              <div class="tradingview-widget-container__widget"></div>
+              <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                {
+                "symbols"= [
+                  {
+                    "description": "HDFC Bank Ltd.",
+                    "proName": "NYSE:HDB"
+                  },
+                  {
+                    "description": "ICICI Bank",
+                    "proName": "NYSE:IBN"
+                  },
+                  {
+                    "description": "Goldman Sachs",
+                    "proName": "NYSE:GS"
+                  },
+                  {
+                    "description": "Bank Of America",
+                    "proName": "NYSE:BAC"
+                  },
+                  {
+                    "description": "HSBC Holdings",
+                    "proName": "NYSE:HSBC"
+                  },
+                  {
+                    "description": "Cisco Systems",
+                    "proName": "NASDAQ:CSCO"
+                  },
+                  {
+                    "description": "AT & T Inc.",
+                    "proName": "NYSE:T"
+                  },
+                  {
+                    "description": "Duke Energy Corperation",
+                    "proName": "NYSE:DUK"
+                  },
+                  {
+                    "description": "Vistara Corporation",
+                    "proName": "NYSE:VST"
+                  },
+                  {
+                    "description": "Adobe Inc.",
+                    "proName": "NASDAQ:ADBE"
+                  }
+                ],
+                "showSymbolLogo"= true,
+                "colorTheme"= "light",
+                "isTransparent"= false,
+                "displayMode"= "adaptive",
+                "locale"= "in"
+                }
+                </script>
+              </div>
+          </div>
+          <div class="grph">
+            <div class="tradingview-widget-container">
+              <div class="tradingview-widget-container__widget"></div>
+              <div class="tradingview-widget-copyright"></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+              {
+              "symbol"= "{{stck}}",
+              "width"= 350,
+              "height"= 220,
+              "locale"= "in",
+              "dateRange"= "12M",
+              "colorTheme"= "dark",
+              "isTransparent"= false,
+              "autosize"= false,
+              "largeChartUrl"= ""
+            }
+              </script>
             </div>
           </div>
         </div>
       </div>
 
+      <div class="2sr">
+        <div class="">
+
+        </div>
+        <div class="">
+
+        </div>
+      </div>
     </div>
   </div>
-</section> */
+</div>
