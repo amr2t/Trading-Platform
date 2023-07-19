@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import ls from "localstorage-slim";
 import { BackService } from '../sl.service';
-import {MatGridListModule} from '@angular/material/grid-list';
+// import { widget, widget, widget } from 'tradingview-api';
 
 @Component({
   selector: 'app-home',
@@ -38,16 +38,16 @@ export class HomeComponent implements OnInit{
     { name: "Adobe Inc.", sname: "adbe", proname:"NASDAQ:ADBE" }]
 
   s = [
-    {description: "HDFC Bank Ltd.",proName: "NYSE:HDB"},
-    {description: "ICICI Bank",proName: "NYSE:IBN"},
-    {description: "Goldman Sachs",proName: "NYSE:GS"},
-    {description: "Bank Of America",proName: "NYSE:BAC"},
-    {description: "HSBC Holdings",proName: "NYSE:HSBC"},
-    {description: "Cisco Systems",proName: "NASDAQ:CSCO"},
-    {description: "AT & T Inc.",proName: "NYSE:T"},
-    {description: "Duke Energy Corperation",proName: "NYSE:DUK"},
-    {description: "Vistara Corporation",proName: "NYSE:VST"},
-    {description: "Adobe Inc.",proName: "NASDAQ:ADBE"}]
+    {title: "HDFC Bank Ltd.",proName: "NYSE:HDB"},
+    {title: "ICICI Bank",proName: "NYSE:IBN"},
+    {title: "Goldman Sachs",proName: "NYSE:GS"},
+    {title: "Bank Of America",proName: "NYSE:BAC"},
+    {title: "HSBC Holdings",proName: "NYSE:HSBC"},
+    {title: "Cisco Systems",proName: "NASDAQ:CSCO"},
+    {title: "AT & T Inc.",proName: "NYSE:T"},
+    {title: "Duke Energy Corperation",proName: "NYSE:DUK"},
+    {title: "Vistara Corporation",proName: "NYSE:VST"},
+    {title: "Adobe Inc.",proName: "NASDAQ:ADBE"}]
   
   
     chartConfig: any = {
@@ -61,29 +61,18 @@ export class HomeComponent implements OnInit{
       autosize: false,
       largeChartUrl: ""
     };
-
-  // tapeconfig: any ={
-  //   Symbool: [{"description": "HDFC Bank Ltd.","proName": "NYSE:HDB"},{"description": "ICICI Bank","proName": "NYSE:IBN"},{"description": "Goldman Sachs","proName": "NYSE:GS"},{"description": "Bank Of America","proName": "NYSE:BAC"},{"description": "HSBC Holdings","proName": "NYSE:HSBC"},
-  //       {"description": "Cisco Systems","proName": "NASDAQ:CSCO"},{"description": "AT & T Inc.","proName": "NYSE:T"},{"description": "Duke Energy Corperation","proName": "NYSE:DUK"},{"description": "Vistara Corporation","proName": "NYSE:VST"},{"description": "Adobe Inc.","proName": "NASDAQ:ADBE"}],
-  //     showSymbolLogo :  true,
-  //     colorTheme  :  "light",
-  //     isTransparent : false,
-  //     displayMode : "adaptive",
-  //     locale : "in"
-  // };
-  
-    
+   
   constructor(private backservice: BackService, private router: Router) {
   }
 
   ngOnInit(): void {
     //Tape Widgit
     const scripttape = document.createElement('script');
-    scripttape.src ="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js"
+    scripttape.src ="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
     scripttape.async = true;
     scripttape.innerHTML = JSON.stringify(
     { 
-      symbols : this.s,
+      symbols: this.s,
       showSymbolLogo :  true,
       colorTheme  :  "dark",
       isTransparent : true,
@@ -101,7 +90,6 @@ export class HomeComponent implements OnInit{
   }
 
   // ************************ SHOW PRICE FUNCTION ***********************************
-
   show_price(Form: FormGroup)
   {
     const divElement = document.getElementById('myDiv');
@@ -152,62 +140,9 @@ export class HomeComponent implements OnInit{
     container.appendChild(script);
   }  
 
-  
-
 
 // ************************** ADD USER BUYING FUNCTION *************************
 
-  // add_userdetail(Form: FormGroup) {
-  //   let pricef: any;
-  //   console.log(typeof (Form.value.qty));
-  //   const get = new Promise<any>((resolve, _reject) => {
-  //     this.backservice.getprice(Form.value.stock).subscribe(
-  //       {
-  //         next: res => resolve(res)
-  //       }
-  //     )
-  //   })
-  //   get.then((value) => {
-  //     this.val$ = value;
-  //     pricef = Form.value.qty * parseInt(this.val$["Global Quote"]["05. price"]) * 82.17;
-  //     const get1 = new Promise<any>((resolve, _reject) => {
-  //       this.backservice.adduser(this.email, Form.value.stock, Form.value.qty, pricef).subscribe(
-  //         {
-  //           next: res => resolve(res)
-  //         }
-  //       )
-  //     })
-  //     get1.then(async(value1) => {
-  //       if (value1["inres"] == "successfully updated") {
-  //         const box1 = document.getElementById("alertnq");
-  //         const el1 = document.createElement('div');
-  //         el1.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
-  //         Successfully buyed!!
-  //        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  //      </div>`;
-  //         box1?.append(el1);
-  //         if (this.click == 1) {
-  //           document.getElementById('forclickremove1')?.remove();
-  //           document.getElementById('forclickremove2')?.remove();
-  //           this.click = 0;
-  //           this.status();
-  //           this.myForm.reset();
-  //         }
-  //       } 
-  //       else {
-  //         const box2 = document.getElementById("alertnq");
-  //         const el2 = document.createElement('div');
-  //         el2.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  //         Enter correct name of stock
-  //        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  //      </div>`;
-  //         box2?.append(el2);
-  //         Form.reset();
-  //       }
-  //     })
-  //   });
-  // }
- 
   add_userdetail(Form: FormGroup) {
     let pricef: any;
     console.log(typeof Form.value.qty);
