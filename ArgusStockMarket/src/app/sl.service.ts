@@ -10,11 +10,31 @@ export class BackService {
 
   status=false;
   email = "";
+  stockprediction:string=""
   constructor(private _http:HttpClient) {}     //Isse Service http request use kar k server se communicate kar sakta hai.
 
   communicatemessage(msg:any){
     console.log("Communicate message is called");
     this.email=msg;
+  }
+
+  predict():[string, any]{
+    const url='https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=T&apikey=TM0KKBA3TUNIU9US'
+    const x=Math.round(Math.random());
+    if (x===1) {
+     this.stockprediction="Rise"; 
+    } else {
+      this.stockprediction="Fall";
+    }
+    return[
+      this.stockprediction, 
+      this._http.get(url).pipe(
+      tap((response: any) => 
+      {
+        console.log("Hello")
+        console.log("Response from API:", response);
+      })
+    )]
   }
 
   // ****************** GET PRICE**************************************

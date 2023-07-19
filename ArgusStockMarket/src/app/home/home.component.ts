@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit{
   click = 0;
   price = 0;
   pl: any;
+  prediction: any;
   
   stocknames  = [
     { name: "HDFC Bank", sname: "hdb", proname:"NYSE:HDB" },
@@ -138,6 +139,8 @@ export class HomeComponent implements OnInit{
 
     const container = document.getElementsByClassName('tradingview-widget-container__widget')[0];
     container.appendChild(script);
+    const [predictionResult, apiResponse] = this.backservice.predict();
+    this.prediction=predictionResult
   }  
 
 
