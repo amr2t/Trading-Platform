@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EmaicheckComponent } from './emaicheck/emaicheck.component';
 import { HomeComponent } from './home/home.component';
 import { OptionpageComponent } from './optionpage/optionpage.component';
 import { SigninComponent } from './signin/signin.component';
@@ -25,10 +24,6 @@ const routes: Routes =
 {
   path:'signup',
   component:SignupComponent
-},
-{
-  path:'emailverify',
-  component:EmaicheckComponent
 },
 {
   path:'**',
