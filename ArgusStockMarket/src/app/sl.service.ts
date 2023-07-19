@@ -61,7 +61,7 @@ export class BackService {
 
   adduser(email:any,stock:any,qty:any,invested:any):Observable<object>{
     console.log("Add user function is called...");
-    return this._http.post("http://localhost:3000/user",{id:email,stockname:stock,qty:qty,invested:invested}); 
+    return this._http.post("http://localhost:8080/",{id:email,stockname:stock,qty:qty,invested:invested}); 
   }
 
   // ************** GET STATUS *****************************************
@@ -82,12 +82,12 @@ export class BackService {
 
   login(email:any,password:any):Observable<object>{
     console.log("back service login function called..."+email+password);
-    return this._http.post("http://localhost:3000/login",{email:email,password:password});
+    return this._http.post("http://localhost:8080/login",{email:email,password:password});
   }
 
 // ******************* SIGNUP ******************************************
 
   signup(email:any,password:any):Observable<object>{
-    return this._http.post("http://localhost:3000/signup",{email:email,password:password});
+    return this._http.post("http://localhost:8080/register",{email:email,password:password});
   }
 }
