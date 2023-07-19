@@ -1,7 +1,17 @@
 <section id="cover" class="min-vh-100">
     <div id="cover-caption">
       <div class="container ">
+        <!-- <button type="button" class="btn btn-outline-light">Rohit</button> -->
         <button type="button" (click)="logout()" class="btn btn-outline-light pull-left"> LOGOUT </button>
+        <!-- TradingView Widget BEGIN -->
+        <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget_tape"></div>
+  <div class="tradingview-widget-copyright"></div>
+  
+</div>
+<!-- TradingView Widget END -->
+        <!-- TradingView Tape End -->
         <div id="alertnq"></div>
         <div class="row">
           <div class="col">
@@ -10,12 +20,16 @@
                 <h1 class="display-4 py-2 text-truncate"> BUY AND SELL</h1>
   
                 <div class="px-2">
+
                   <form class="justify-content-center" [formGroup]="myForm" (ngSubmit)="add_userdetail(myForm)">
                     <div class="form-group --stockname">
                       <label>Stock Name</label>
+
                       <select type="text" class="form-control custom-select col-sm-2" formControlName="stock" name="stock" required>
-                        <option *ngFor="let stockname of stocknames" value="{{stockname.sname}}">{{stockname.name}}</option>
+                        <option *ngFor="let stockname of stocknames"  value="{{stockname.sname}}">{{stockname.name}}</option>
                       </select>
+                      
+
                     </div>
                     
                     <p></p>
@@ -72,23 +86,9 @@
                 <h1 class="display-4 py-2 text-truncate">STATUS
                 </h1>
                 <!-- TradingView Widget BEGIN -->
-                <!-- <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                    {
-                    "symbol"= "{{selectedProname}}",
-                    "width"= 350,
-                    "height"= 220,
-                    "locale"= "in",
-                    "dateRange"= "12M",
-                    "colorTheme"= "dark",
-                    "isTransparent"= false,
-                    "autosize"= false,
-                    "largeChartUrl"= ""
-                }
-                    </script>
-                </div> -->
+                <div class="tradingview-widget-container">
+                  <div id="myDiv" class="tradingview-widget-container__widget"></div>
+                </div>
                 <!-- TradingView Widget END -->
                 
   
@@ -101,24 +101,6 @@
           </div>
         </div>
       </div>
-      <!-- Trading Graph Start -->
-      <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <div class="tradingview-widget-copyright"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-        {
-        "symbol": "{{selectedProname}}",
-        "width": 350,
-        "height": 220,
-        "locale": "in",
-        "dateRange": "12M",
-        "colorTheme": "light",
-        "isTransparent": false,
-        "autosize": false,
-        "largeChartUrl": ""
-        }
-        </script>
-    </div>
-    <!-- TradingView Graph END -->
+      
     </div>
   </section>

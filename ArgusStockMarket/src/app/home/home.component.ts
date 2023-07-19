@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import ls from "localstorage-slim";
 import { BackService } from '../sl.service';
-import {MatGridListModule} from '@angular/material/grid-list';
+// import { widget, widget, widget } from 'tradingview-api';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit{
   price = 0;
   pl: any;
   
-  stocknames : any = [
+  stocknames  = [
     { name: "HDFC Bank", sname: "hdb", proname:"NYSE:HDB" },
     { name: "ICICI Bank", sname: "ibn", proname:"NYSE:IBN" },
     { name: "Bank Of America", sname: "bac", proname:"NYSE:BAC" },
@@ -36,13 +36,53 @@ export class HomeComponent implements OnInit{
     { name: "Duke Energy Corperations", sname: "duk", proname:"NYSE:DUK" },
     { name: "Vistara Corperation", sname: "vst", proname:"NYSE:VST" },
     { name: "Adobe Inc.", sname: "adbe", proname:"NASDAQ:ADBE" }]
+
+  s = [
+    {title: "HDFC Bank Ltd.",proName: "NYSE:HDB"},
+    {title: "ICICI Bank",proName: "NYSE:IBN"},
+    {title: "Goldman Sachs",proName: "NYSE:GS"},
+    {title: "Bank Of America",proName: "NYSE:BAC"},
+    {title: "HSBC Holdings",proName: "NYSE:HSBC"},
+    {title: "Cisco Systems",proName: "NASDAQ:CSCO"},
+    {title: "AT & T Inc.",proName: "NYSE:T"},
+    {title: "Duke Energy Corperation",proName: "NYSE:DUK"},
+    {title: "Vistara Corporation",proName: "NYSE:VST"},
+    {title: "Adobe Inc.",proName: "NASDAQ:ADBE"}]
   
-    
+  
+    chartConfig: any = {
+      symbol: '',
+      width: 350,
+      height: 220,
+      locale: "in",
+      dateRange: "12M",
+      colorTheme: "light",
+      isTransparent: false,
+      autosize: false,
+      largeChartUrl: ""
+    };
+   
   constructor(private backservice: BackService, private router: Router) {
   }
 
   ngOnInit(): void {
-    
+    //Tape Widgit
+    const scripttape = document.createElement('script');
+    scripttape.src ="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+    scripttape.async = true;
+    scripttape.innerHTML = JSON.stringify(
+    { 
+      symbols: this.s,
+      showSymbolLogo :  true,
+      colorTheme  :  "dark",
+      isTransparent : true,
+      displayMode : "adaptive",
+      locale : "in"
+    });
+    const container = document.getElementsByClassName('tradingview-widget-container__widget_tape')[0];
+    container.appendChild(scripttape);
+
+    // Form
     this.myForm = new FormGroup({
     stock: new FormControl('Select Your Stock', [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
     qty: new FormControl('--', [Validators.required, Validators.minLength(1)]),
@@ -50,19 +90,26 @@ export class HomeComponent implements OnInit{
   }
 
   // ************************ SHOW PRICE FUNCTION ***********************************
-
-  show_price(Form: FormGroup) {
-    console.log("Before subscribe")
-    console.log(this.stck);
+  show_price(Form: FormGroup)
+  {
+    const divElement = document.getElementById('myDiv');
+  if (divElement) 
+  {
+    divElement.innerHTML = '';
+  }
     console.log("1")
     this.stock = Form.value.stock;
+    console.log(this.stock)
     console.log("2")
+    this.stocknames.map((element,index)=>{
+      if(element.sname===this.stock){
+        console.log("3")
+        this.selectedProname=element.proname
+        console.log(element.proname);
+        console.log("4")
+      }
+    })
 
-    console.log("3")
-    const foundstock = this.stocknames.find((item:any) => item.name === this.stock);
-    console.log(foundstock)
-    console.log("4")
-    this.selectedProname=foundstock?.proname
     console.log(this.selectedProname)
     console.log("5")
     this.backservice.getprice(this.stock).subscribe((res : any)=>
@@ -71,63 +118,31 @@ export class HomeComponent implements OnInit{
         this.val$ = res;
         this.price = parseInt(this.val$["Global Quote"]["05. price"]) * 82.17;
       })
-      console.log("7")
-  }
+    console.log("7")
+    this.chartConfig.symbol = this.selectedProname;
+    const script = document.createElement('script');
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js';
+    script.async = true;
+    script.innerHTML = JSON.stringify(
+    {
+      "symbol": this.selectedProname,
+      "width": "100%",
+      "height": 320,
+      "locale": "in",
+      "dateRange": "12M",
+      "colorTheme": "dark",
+      "isTransparent": false,
+      "autosize": false,
+      "largeChartUrl": ""
+    });
+
+    const container = document.getElementsByClassName('tradingview-widget-container__widget')[0];
+    container.appendChild(script);
+  }  
 
 
 // ************************** ADD USER BUYING FUNCTION *************************
 
-  // add_userdetail(Form: FormGroup) {
-  //   let pricef: any;
-  //   console.log(typeof (Form.value.qty));
-  //   const get = new Promise<any>((resolve, _reject) => {
-  //     this.backservice.getprice(Form.value.stock).subscribe(
-  //       {
-  //         next: res => resolve(res)
-  //       }
-  //     )
-  //   })
-  //   get.then((value) => {
-  //     this.val$ = value;
-  //     pricef = Form.value.qty * parseInt(this.val$["Global Quote"]["05. price"]) * 82.17;
-  //     const get1 = new Promise<any>((resolve, _reject) => {
-  //       this.backservice.adduser(this.email, Form.value.stock, Form.value.qty, pricef).subscribe(
-  //         {
-  //           next: res => resolve(res)
-  //         }
-  //       )
-  //     })
-  //     get1.then(async(value1) => {
-  //       if (value1["inres"] == "successfully updated") {
-  //         const box1 = document.getElementById("alertnq");
-  //         const el1 = document.createElement('div');
-  //         el1.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
-  //         Successfully buyed!!
-  //        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  //      </div>`;
-  //         box1?.append(el1);
-  //         if (this.click == 1) {
-  //           document.getElementById('forclickremove1')?.remove();
-  //           document.getElementById('forclickremove2')?.remove();
-  //           this.click = 0;
-  //           this.status();
-  //           this.myForm.reset();
-  //         }
-  //       } 
-  //       else {
-  //         const box2 = document.getElementById("alertnq");
-  //         const el2 = document.createElement('div');
-  //         el2.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  //         Enter correct name of stock
-  //        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  //      </div>`;
-  //         box2?.append(el2);
-  //         Form.reset();
-  //       }
-  //     })
-  //   });
-  // }
- 
   add_userdetail(Form: FormGroup) {
     let pricef: any;
     console.log(typeof Form.value.qty);
