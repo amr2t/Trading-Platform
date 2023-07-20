@@ -17,7 +17,8 @@ public class UserController
 
     @PostMapping("/register")
     @CrossOrigin(origins="http://localhost:4200")
-    public user register(@RequestBody user user) throws Exception {
+    public user register(@RequestBody user user) throws Exception
+    {
         return userService.saveNewUser(user);
     }
 

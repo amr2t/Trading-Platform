@@ -31,34 +31,43 @@ export class SigninComponent implements OnInit{
   // ********************* TO STOCK FUNCTION **********************************
 
   tostock(Form: FormGroup) {
+    console.log("1")
     const get = new Promise<any>((resolve, _reject) => {
+      console.log("2")
       console.log("Checked Promise...")
+      console.log("3")
       this.backservice.login(Form.value.email, Form.value.password).subscribe(
         {
-          next: res => resolve(res)
-          
+          next: res => resolve(res) 
         }
       )
     })
     get.then((value) => {
+      console.log("4")
       console.log("to stock get.then")
       this.router.navigateByUrl('/home');
       if (value["message"] == "User logged in") {
+        console.log("5")
         ls.set('#qwAs?.,s', Form.value.email, { encrypt: true, secret: 88 });
         this.backservice.communicatemessage(Form.value.email);
+        console.log("6")
         ls.set('qsc@1!%^36', 'true', { encrypt: true, secret: 88 });
         console.log(value["accessToken"]);
         ls.set('wqewq234!2@',value["accessToken"],{encrypt:true, secret:88});
       }
       else {
+        console.log("7")
         this.elsecheck=1;
         console.log("else statement is called");
+        console.log("8")
         const box1 = document.getElementById("alertnq");
         const el1 = document.createElement('div');
+        console.log("9")
         el1.innerHTML = ` <div class="alert alert-danger alert-dismissible fade show" role="alert">
         Please enter correct email or password
        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
      </div>`
+     console.log("10")
         box1?.append(el1);
         Form.reset();
       }
