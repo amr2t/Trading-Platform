@@ -10,6 +10,7 @@ public class portfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pid;
+    private String stockName;
     private String buyingDate;
     private Integer quantity;
     private Integer totalAmount;
@@ -22,12 +23,13 @@ public class portfolio {
     public portfolio() {
     }
 
-    public portfolio(Long pid, String buyingDate, Integer quantity, Integer totalAmount, user user, List<stock> stockList) {
+    public portfolio(Long pid, String stockName, String buyingDate, Integer quantity, Integer totalAmount, com.trade.arg_platform.entity.user user, List<stock> stockList) {
         this.pid = pid;
+        this.stockName = stockName;
         this.buyingDate = buyingDate;
         this.quantity = quantity;
         this.totalAmount = totalAmount;
-        user = user;
+        this.user = user;
         this.stockList = stockList;
     }
 
@@ -37,6 +39,14 @@ public class portfolio {
 
     public void setPid(Long pid) {
         this.pid = pid;
+    }
+
+    public String getStockName() {
+        return stockName;
+    }
+
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
     }
 
     public String getBuyingDate() {
@@ -63,12 +73,12 @@ public class portfolio {
         this.totalAmount = totalAmount;
     }
 
-    public user getUser() {
+    public com.trade.arg_platform.entity.user getUser() {
         return user;
     }
 
-    public void setUser(user user) {
-        user = user;
+    public void setUser(com.trade.arg_platform.entity.user user) {
+        this.user = user;
     }
 
     public List<stock> getStockList() {
@@ -83,10 +93,11 @@ public class portfolio {
     public String toString() {
         return "portfolio{" +
                 "pid=" + pid +
+                ", stockName='" + stockName + '\'' +
                 ", buyingDate='" + buyingDate + '\'' +
                 ", quantity=" + quantity +
                 ", totalAmount=" + totalAmount +
-                ", User=" + user +
+                ", user=" + user +
                 ", stockList=" + stockList +
                 '}';
     }
