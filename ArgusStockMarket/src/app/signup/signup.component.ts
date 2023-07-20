@@ -36,12 +36,14 @@ export class SignupComponent implements OnInit {
     const get = new Promise<any>((resolve, _reject) => {
       console.log("Checked Promise...")
       this.backservice.signup(Form.value.email, Form.value.password).subscribe(
-        {
-          next: res => resolve(res)
-        }
+        
+          // next: res => resolve(res),
+          data => this.router.navigateByUrl('/login'),
+          error => console.log(error)
+        
       )
     })
-    get.then((value) => {
+    get.then((value: { [x: string]: string; }) => {
       if (value["message"] == "user added") {
         this.router.navigateByUrl('/login');
       }

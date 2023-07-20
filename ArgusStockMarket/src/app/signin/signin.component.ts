@@ -36,18 +36,19 @@ export class SigninComponent implements OnInit{
       this.backservice.login(Form.value.email, Form.value.password).subscribe(
         {
           next: res => resolve(res)
+          
         }
       )
     })
     get.then((value) => {
       console.log("to stock get.then")
+      this.router.navigateByUrl('/stock');
       if (value["message"] == "User logged in") {
         ls.set('#qwAs?.,s', Form.value.email, { encrypt: true, secret: 88 });
         this.backservice.communicatemessage(Form.value.email);
         ls.set('qsc@1!%^36', 'true', { encrypt: true, secret: 88 });
         console.log(value["accessToken"]);
         ls.set('wqewq234!2@',value["accessToken"],{encrypt:true, secret:88});
-        this.router.navigateByUrl('/stock');
       }
       else {
         this.elsecheck=1;
