@@ -38,14 +38,14 @@ export class SignupComponent implements OnInit {
       this.backservice.signup(Form.value.email, Form.value.password).subscribe(
         
           // next: res => resolve(res),
-          data => this.router.navigateByUrl('/login'),
+          data => this.router.navigateByUrl('/signin'),
           error => console.log(error)
         
       )
     })
     get.then((value: { [x: string]: string; }) => {
       if (value["message"] == "user added") {
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/signin');
       }
       else
       {

@@ -42,7 +42,7 @@ export class SigninComponent implements OnInit{
     })
     get.then((value) => {
       console.log("to stock get.then")
-      this.router.navigateByUrl('/stock');
+      this.router.navigateByUrl('/home');
       if (value["message"] == "User logged in") {
         ls.set('#qwAs?.,s', Form.value.email, { encrypt: true, secret: 88 });
         this.backservice.communicatemessage(Form.value.email);
