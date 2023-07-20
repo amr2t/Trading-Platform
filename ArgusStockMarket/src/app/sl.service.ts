@@ -18,25 +18,6 @@ export class BackService {
     this.email=msg;
   }
 
-  predict():[string, any]{
-    const url='https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=T&apikey=TM0KKBA3TUNIU9US'
-    const x=Math.round(Math.random());
-    if (x===1) {
-     this.stockprediction="Rise"; 
-    } else {
-      this.stockprediction="Fall";
-    }
-    return[
-      this.stockprediction, 
-      this._http.get(url).pipe(
-      tap((response: any) => 
-      {
-        console.log("Hello")
-        console.log("Response from API:", response);
-      })
-    )]
-  }
-
   // ****************** GET PRICE**************************************
   
   // getprice(name:any):Observable<object>{

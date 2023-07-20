@@ -37,7 +37,6 @@ export class SignupComponent implements OnInit {
       console.log("Checked Promise...")
       this.backservice.signup(Form.value.email, Form.value.password).subscribe(
         
-          // next: res => resolve(res),
           data => this.router.navigateByUrl('/signin'),
           error => console.log(error)
         

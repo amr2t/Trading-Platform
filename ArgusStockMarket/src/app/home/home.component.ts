@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit{
   price = 0;
   pl: any;
   prediction: any;
+  temp :any
   
   stocknames  = [
     { name: "HDFC Bank", sname: "hdb", proname:"NYSE:HDB" },
@@ -118,6 +119,12 @@ export class HomeComponent implements OnInit{
         console.log("6")
         this.val$ = res;
         this.price = parseInt(this.val$["Global Quote"]["05. price"]) * 82.17;
+        this.temp = parseFloat(this.val$["Global Quote"]["09. change"]);
+        if (this.temp<0) {
+          this.prediction="Fall. So Try For Short Sell"
+        } else {
+          this.prediction="Rise. So Better To Be In Long Position"
+        }
       })
     console.log("7")
     this.chartConfig.symbol = this.selectedProname;
@@ -139,8 +146,8 @@ export class HomeComponent implements OnInit{
 
     const container = document.getElementsByClassName('tradingview-widget-container__widget')[0];
     container.appendChild(script);
-    const [predictionResult, apiResponse] = this.backservice.predict();
-    this.prediction=predictionResult
+    // const [predictionResult, apiResponse] = this.backservice.predict();
+    // this.prediction=predictionResult
   }  
 
 
