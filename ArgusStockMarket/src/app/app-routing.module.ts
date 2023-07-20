@@ -5,7 +5,6 @@ import { OptionpageComponent } from './optionpage/optionpage.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 
-// hello
 const routes: Routes = 
 [{
   path:'',
