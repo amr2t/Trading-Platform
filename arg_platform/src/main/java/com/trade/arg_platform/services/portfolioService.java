@@ -16,4 +16,8 @@ public class portfolioService {
         return  portfolioRepo.save(portfolio);
 
     }
+
+    public void sellStock(Long pid){
+        portfolioRepo.deleteById(pid);
+    }
 }
