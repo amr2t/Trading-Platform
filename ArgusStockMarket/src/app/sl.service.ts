@@ -10,18 +10,18 @@ import { DatePipe } from '@angular/common';
 })
 export class BackService {
 
-  status=false;
-  email = "";
-  uid:any;
-  buyingDate:string="";
+  // status=false;
+  // email :string='';
+  // uid:any;
+  // buyingDate:string="";
 
 
   constructor(private _http:HttpClient) {}     //Isse Service http request use kar k server se communicate kar sakta hai.
 
-  communicatemessage(msg:any){
-    console.log("Communicate message is called");
-    this.email=msg;
-  }
+  // communicatemessage(msg:any){
+  //   console.log("Communicate message is called");
+  //   this.email=msg;
+  // }
 
   // ****************** GET PRICE**************************************
 
@@ -68,14 +68,25 @@ export class BackService {
 
   sell(email:any,stock:any,qty:any):Observable<object>{
     console.log("Back service of email is called");
-    return this._http.post("http://localhost:3000/sell",{id:email,name:stock,qty:qty});
+    return this._http.post("http://localhost:8080/sellStocks/{pid}",{id:email,name:stock,qty:qty});
   }
 
   // ***************** LOGIN ******************************************
 
   login(email:any,password:any):Observable<any>{
+
+    const requestBody = {
+      email: email,
+      password: password,
+    };
+
     console.log("back service login function called..."+email+password);
-    return this._http.post("http://localhost:8080/login",{email:email,password:password});
+    return this._http.post("http://localhost:8080/login",requestBody);
+
+    
+    // console.log("Add user function is called...");
+    // return this._http.post<any>("http://localhost:8080/addStock", requestBody);
+
   }
 
 // ******************* SIGNUP ******************************************

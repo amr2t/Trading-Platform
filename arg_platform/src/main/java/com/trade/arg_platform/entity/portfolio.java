@@ -1,6 +1,7 @@
 package com.trade.arg_platform.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class portfolio {
     private Integer totalAmount;
 
     @OneToOne
+    @JsonIgnore
     private user user;
     @OneToMany(mappedBy = "portfolio")
     private List<stock> stockList;

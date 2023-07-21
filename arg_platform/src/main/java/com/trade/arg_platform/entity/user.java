@@ -1,5 +1,6 @@
 package com.trade.arg_platform.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity(name="trader")
@@ -11,6 +12,7 @@ public class user {
     private String password;
 
     @OneToOne(mappedBy = "user")
+    @JsonIgnore
     private portfolio portfolioList;
 
     public user() {
