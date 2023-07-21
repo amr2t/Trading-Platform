@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import ls from "localstorage-slim";
 import { BackService } from '../sl.service';
+import { waitForAsync } from '@angular/core/testing';
 // import { widget, widget, widget } from 'tradingview-api';
 
 @Component({
@@ -12,6 +13,7 @@ import { BackService } from '../sl.service';
   
 })
 export class HomeComponent implements OnInit{
+  
 
   selectedProname: string = '';
   stck :any = '';
@@ -26,6 +28,14 @@ export class HomeComponent implements OnInit{
   pl: any;
   prediction: any;
   temp :any
+  currentDate:Date|any=null;
+  currentmonth:Date|any=null;
+  currentyear:Date|any=null;
+  date:string='';
+  quantity:number=0;
+  stknm:string='';
+  amount:number=0;
+  uid:any;
   
   stocknames  = [
     { name: "HDFC Bank", sname: "hdb", proname:"NYSE:HDB" },
@@ -153,42 +163,41 @@ export class HomeComponent implements OnInit{
 
 // ************************** ADD USER BUYING FUNCTION *************************
 
-  add_userdetail(Form: FormGroup) {
-    let pricef: any;
-    console.log(typeof Form.value.qty);
-    this.backservice.getprice(Form.value.stock).subscribe((value: any) => {
-      this.val$ = value;
-      pricef = Form.value.qty * parseInt(this.val$["Global Quote"]["05. price"]) * 82.17;
-      this.backservice.adduser(this.email, Form.value.stock, Form.value.qty, pricef).subscribe((value1: any) => {
-        if (value1["inres"] == "successfully updated") {
-          const box1 = document.getElementById("alertnq");
-          const el1 = document.createElement('div');
-          el1.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Successfully bought!!
-           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-         </div>`;
-          box1?.append(el1);
-          if (this.click == 1) {
-            document.getElementById('forclickremove1')?.remove();
-            document.getElementById('forclickremove2')?.remove();
-            this.click = 0;
-            this.status();
-            this.myForm.reset();
-          }
-        }
-        else {
-          const box2 = document.getElementById("alertnq");
-          const el2 = document.createElement('div');
-          el2.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Enter correct name of stock
-           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-         </div>`;
-          box2?.append(el2);
-          Form.reset();
-        }
+    
+  add_userdetail(Form: FormGroup)
+  {
+    this.currentDate = new Date().getDate();
+    this.currentmonth = new Date().getMonth()+1;
+    this.currentyear = new Date().getFullYear();
+    this.date = this.currentyear+"-"+this.currentmonth+"-"+this.currentDate
+    console.log("1 - Date",this.date)
+    this.quantity = Form.value.qty;
+    console.log("2 - Quantity",this.quantity)
+    this.uid = localStorage.getItem("Uid");
+    console.log("3 - Uid",this.uid)
+    this.stknm = Form.value.stock;
+    console.log("4 - Stock",this.stknm)
+    
+    this.backservice.getprice(this.stknm).subscribe({
+      next:
+      (res: any) => {
+      this.val$ = res;
+      console.log("5 - Response Of Price Api",this.val$)
+      this.amount = Form.value.qty * parseInt(this.val$["Global Quote"]["05. price"]) * 82.17;
+      console.log("6 - Amount",this.amount)
+    },
+    error: (error)=>{
+      console.log(error);
+      
+    },
+    complete : ()=>{
+      this.backservice.adduser(this.date, this.quantity, this.amount, this.uid, this.stknm).subscribe((values: any) => {
+        console.log("7 - Final Buy Api",values);
       });
-    });
+    }
+  });
   }
+
 
   //*********************** GET THE STATUS OF USER BUYING FUNCTION *************************** 
 
@@ -289,8 +298,7 @@ sellstock(Form: FormGroup) {
   // ********************** LOGOUT FUNCTION ***********************************
   
   logout() {
-    ls.remove("#qwAs?.,s");
-    ls.remove("qsc@1!%^36");
+    ls.remove("Uid");
     this.router.navigateByUrl('/');
   }
 }
