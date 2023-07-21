@@ -43,7 +43,7 @@ export class BackService {
   //   return this._http.post<any>("http://localhost:8080/addStock",{datbuyingDate:_currentDate,quantity:qty,totalAmount:invested,user_uid:uid,stockName:stock}); 
   // }
 
-  adduser(buyingDate: string, quantity: number, totalAmount: number, uid: string, stockName: string): Observable<any> {
+  adduser(buyingDate: string, quantity: number, totalAmount: number, uid: any, stockName: string): Observable<any> {
     const requestBody = {
       buyingDate: buyingDate,
       quantity: quantity,
@@ -61,7 +61,7 @@ export class BackService {
 
   getstatus(email:any):Observable<object>{
     console.log("Get status is called");
-    return this._http.get(`http://localhost:3000/getstatus?id=${email}`)
+    return this._http.get(`http://localhost:8080/getstatus?id=${email}`)
   }
 
   // ****************** SELL ******************************************

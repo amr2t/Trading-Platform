@@ -15,6 +15,7 @@ export class SigninComponent implements OnInit
 {
   elsecheck = 0;
   myForm!: FormGroup;
+  temp: number=0;
 
   // *************** CONSTRUCTOR ************************************************ private authg: AuthGuard
 
@@ -41,7 +42,8 @@ export class SigninComponent implements OnInit
           if(Form.value.password===data.password)
           {
             console.log("3")
-            localStorage.setItem("Uid",data.uid)
+            this.temp=data.uid
+            localStorage.setItem("Uid",this.temp.toString())
             this.router.navigateByUrl('/home');
           }else
           {

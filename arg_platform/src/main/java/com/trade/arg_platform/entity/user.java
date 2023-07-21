@@ -1,6 +1,7 @@
 package com.trade.arg_platform.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity(name="trader")
@@ -12,7 +13,7 @@ public class user {
     private String password;
 
     @OneToOne(mappedBy = "user")
-    @JsonIgnore
+    @JsonIgnoreProperties({"user"})
     private portfolio portfolioList;
 
     public user() {

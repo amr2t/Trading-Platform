@@ -173,30 +173,62 @@ export class HomeComponent implements OnInit{
     console.log("1 - Date",this.date)
     this.quantity = Form.value.qty;
     console.log("2 - Quantity",this.quantity)
-    this.uid = localStorage.getItem("Uid");
-    console.log("3 - Uid",this.uid)
+
     this.stknm = Form.value.stock;
-    console.log("4 - Stock",this.stknm)
+    console.log("3 - Stock",this.stknm)
     
     this.backservice.getprice(this.stknm).subscribe({
       next:
       (res: any) => {
       this.val$ = res;
-      console.log("5 - Response Of Price Api",this.val$)
+      console.log("4 - Response Of Price Api",this.val$)
       this.amount = Form.value.qty * parseInt(this.val$["Global Quote"]["05. price"]) * 82.17;
-      console.log("6 - Amount",this.amount)
+      console.log("5 - Amount",this.amount)
     },
     error: (error)=>{
       console.log(error);
       
     },
-    complete : ()=>{
+    complete : ()=>
+    {
+      const uidData: string | null = localStorage.getItem("Uid");
+      const uidUnknown: unknown = uidData;
+      const uidNumber: number = uidUnknown as number;
+      this.uid = <string>uidData
+      console.log("6 - Uid",this.uid)
       this.backservice.adduser(this.date, this.quantity, this.amount, this.uid, this.stknm).subscribe((values: any) => {
         console.log("7 - Final Buy Api",values);
-      });
+      }
+      );
+        if (this.click == 1)
+        {
+          const box2 = document.getElementById("alertnq");
+         const el2 = document.createElement('div');
+         el2.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+         Enter correct name of stock
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+         box2?.append(el2);
+         Form.reset();
+          
+        }else
+        {
+         const box1 = document.getElementById("alertnq")
+          const el1 = document.createElement('div');
+          el1.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+          Successfully buyed!!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+          box1?.append(el1);
+         document.getElementById('forclickremove1')?.remove();
+         document.getElementById('forclickremove2')?.remove();
+         this.click = 0;
+         this.status();
+         this.myForm.reset();
+       }
     }
-  });
-  }
+  })
+}
 
 
   //*********************** GET THE STATUS OF USER BUYING FUNCTION *************************** 
