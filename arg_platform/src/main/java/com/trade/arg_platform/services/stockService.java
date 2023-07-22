@@ -11,15 +11,15 @@ public class stockService {
     @Autowired
     private stockRepository stockRepo;
 
-    public stock buyStock(stock stock) throws Exception
+    public stock Stock(stock stock) throws Exception
     {
        return stockRepo.save(stock);
     }
 
-    public stock sellStock(stock stock) throws Exception
-    {
-        return stockRepo.save(stock);
-    }
+//    public stock sellstock(stock stock) throws Exception
+//    {
+//        return stockRepo.save(stock);
+//    }
 
 
 }

@@ -3,6 +3,8 @@ package com.trade.arg_platform.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity(name="trader")
 public class user {
     @Id
@@ -11,14 +13,14 @@ public class user {
     private String email;
     private String password;
 
-    @OneToOne(mappedBy = "user")
+    @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
-    private portfolio portfolioList;
+    private List<portfolio> portfolioList;
 
     public user() {
     }
 
-    public user(Long uid, String email, String password, portfolio portfolioList) {
+    public user(Long uid, String email, String password, List<portfolio> portfolioList) {
         this.uid = uid;
         this.email = email;
         this.password = password;
@@ -49,11 +51,11 @@ public class user {
         this.password = password;
     }
 
-    public portfolio getPortfolioList() {
+    public List<portfolio> getPortfolioList() {
         return portfolioList;
     }
 
-    public void setPortfolioList(portfolio portfolioList) {
+    public void setPortfolioList(List<portfolio> portfolioList) {
         this.portfolioList = portfolioList;
     }
 

@@ -1,20 +1,19 @@
 package com.trade.arg_platform.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class stock {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sid;
     private boolean bs;
 //    private String smallName;
 //    private String companyName;
 //    private String proName;
 
-    @OneToOne(mappedBy = "stockList")
+    @OneToOne
     @JsonIgnoreProperties({"stockList"})
     private portfolio portfolio;
 

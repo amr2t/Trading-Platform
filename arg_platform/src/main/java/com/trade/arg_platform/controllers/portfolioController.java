@@ -25,7 +25,7 @@ public class portfolioController {
     @CrossOrigin(origins="http://localhost:4200")
     public portfolio addStock(@RequestBody portfolio portfolio) throws Exception
     {
-        stockService.buyStock(myStock.setBs(true));
+
         //System.out.println("Hi");
         return portfolioService.addStocks(portfolio);
     }
@@ -34,7 +34,7 @@ public class portfolioController {
     @CrossOrigin(origins="http://localhost:4200")
     public portfolio sellStocks(@RequestBody portfolio portfolio) throws Exception
     {
-        stockService.sellStock(myStock.setBs(false));
+
         return portfolioService.sellStocks(portfolio);
     }
 }
