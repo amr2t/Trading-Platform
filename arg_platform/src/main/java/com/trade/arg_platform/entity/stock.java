@@ -1,5 +1,6 @@
 package com.trade.arg_platform.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -14,6 +15,7 @@ public class stock {
 //    private String proName;
 
     @OneToOne(mappedBy = "stockList")
+    @JsonIgnoreProperties({"stockList"})
     private portfolio portfolio;
 
     public stock() {

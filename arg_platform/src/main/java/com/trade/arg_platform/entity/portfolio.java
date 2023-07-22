@@ -20,6 +20,7 @@ public class portfolio {
     @JsonIgnoreProperties({"portfolioList"})
     private List<user> user;
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"portfolio"})
     private stock stockList;
 
     public portfolio() {
