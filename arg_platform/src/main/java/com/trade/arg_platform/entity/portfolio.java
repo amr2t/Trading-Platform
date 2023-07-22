@@ -1,7 +1,6 @@
 package com.trade.arg_platform.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -17,16 +16,16 @@ public class portfolio {
     private Integer quantity;
     private Integer totalAmount;
 
-    @OneToOne
+    @OneToMany
     @JsonIgnoreProperties({"portfolioList"})
-    private user user;
-    @OneToMany(mappedBy = "portfolio")
-    private List<stock> stockList;
+    private List<user> user;
+    @OneToOne(cascade = CascadeType.ALL)
+    private stock stockList;
 
     public portfolio() {
     }
 
-    public portfolio(Long pid, String stockName, String buyingDate, Integer quantity, Integer totalAmount, com.trade.arg_platform.entity.user user, List<stock> stockList) {
+    public portfolio(Long pid, String stockName, String buyingDate, Integer quantity, Integer totalAmount, List<com.trade.arg_platform.entity.user> user, stock stockList) {
         this.pid = pid;
         this.stockName = stockName;
         this.buyingDate = buyingDate;
@@ -76,19 +75,19 @@ public class portfolio {
         this.totalAmount = totalAmount;
     }
 
-    public com.trade.arg_platform.entity.user getUser() {
+    public List<com.trade.arg_platform.entity.user> getUser() {
         return user;
     }
 
-    public void setUser(com.trade.arg_platform.entity.user user) {
+    public void setUser(List<com.trade.arg_platform.entity.user> user) {
         this.user = user;
     }
 
-    public List<stock> getStockList() {
+    public stock getStockList() {
         return stockList;
     }
 
-    public void setStockList(List<stock> stockList) {
+    public void setStockList(stock stockList) {
         this.stockList = stockList;
     }
 

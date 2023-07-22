@@ -17,7 +17,10 @@ public class portfolioService {
 
     }
 
-    public void sellStock(Long pid){
-        portfolioRepo.deleteById(pid);
+    public portfolio sellStocks (portfolio portfolio) throws Exception
+    {
+        return portfolioRepo.save(portfolio);
     }
+
+
 }
