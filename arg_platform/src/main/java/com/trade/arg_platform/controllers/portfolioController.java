@@ -3,10 +3,9 @@ package com.trade.arg_platform.controllers;
 import com.trade.arg_platform.entity.portfolio;
 import com.trade.arg_platform.services.portfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
@@ -34,5 +33,12 @@ public class portfolioController {
     {
 
         return portfolioService.sellStocks(portfolio);
+    }
+
+    @GetMapping("/showStocks/{uid}")
+    @CrossOrigin(origins="http://localhost:4200")
+    public List<portfolio> showStocks(@PathVariable("uid") long uid)
+    {
+        return portfolioService.showStocks(uid);
     }
 }
