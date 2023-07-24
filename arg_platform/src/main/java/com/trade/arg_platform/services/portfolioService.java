@@ -2,7 +2,6 @@ package com.trade.arg_platform.services;
 
 import com.trade.arg_platform.dao.portfolioRepository;
 import com.trade.arg_platform.entity.portfolio;
-import com.trade.arg_platform.entity.stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +10,9 @@ public class portfolioService {
 
     @Autowired
     private portfolioRepository portfolioRepo;
-    @Autowired
-    private stockService stockService;
-    stock myStock = new stock();
+//    @Autowired
+//    private stockService stockService;
+//    stock myStock = new stock();
 
     public portfolio addStocks(portfolio portfolio) throws Exception
     {

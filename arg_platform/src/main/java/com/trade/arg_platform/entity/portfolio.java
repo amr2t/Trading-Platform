@@ -13,25 +13,23 @@ public class portfolio {
     private String buyingDate;
     private Integer quantity;
     private Integer totalAmount;
+    private boolean bs;
 
     @ManyToOne
     @JsonIgnoreProperties({"portfolioList"})
     private user user;
-    @OneToOne(mappedBy = "portfolio" )
-    @JsonIgnoreProperties({"portfolio"})
-    private stock stockList;
 
     public portfolio() {
     }
 
-    public portfolio(Long pid, String stockName, String buyingDate, Integer quantity, Integer totalAmount, com.trade.arg_platform.entity.user user, stock stockList) {
+    public portfolio(Long pid, String stockName, String buyingDate, Integer quantity, Integer totalAmount, boolean bs, com.trade.arg_platform.entity.user user) {
         this.pid = pid;
         this.stockName = stockName;
         this.buyingDate = buyingDate;
         this.quantity = quantity;
         this.totalAmount = totalAmount;
+        this.bs = bs;
         this.user = user;
-        this.stockList = stockList;
     }
 
     public Long getPid() {
@@ -74,20 +72,20 @@ public class portfolio {
         this.totalAmount = totalAmount;
     }
 
+    public boolean isBs() {
+        return bs;
+    }
+
+    public void setBs(boolean bs) {
+        this.bs = bs;
+    }
+
     public com.trade.arg_platform.entity.user getUser() {
         return user;
     }
 
     public void setUser(com.trade.arg_platform.entity.user user) {
         this.user = user;
-    }
-
-    public stock getStockList() {
-        return stockList;
-    }
-
-    public void setStockList(stock stockList) {
-        this.stockList = stockList;
     }
 
     @Override
@@ -98,8 +96,8 @@ public class portfolio {
                 ", buyingDate='" + buyingDate + '\'' +
                 ", quantity=" + quantity +
                 ", totalAmount=" + totalAmount +
+                ", bs=" + bs +
                 ", user=" + user +
-                ", stockList=" + stockList +
                 '}';
     }
 }
