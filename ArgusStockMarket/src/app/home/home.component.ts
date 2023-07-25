@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit{
   uid:any;
   unm:any;
   ary:any;
+  hidden:boolean=false;
   
   stocknames  = [
     { name: "HDFC Bank", sname: "hdb", proname:"NYSE:HDB" },
@@ -238,8 +239,7 @@ export class HomeComponent implements OnInit{
   //*********************** GET THE STATUS OF USER BUYING FUNCTION *************************** 
 
   status() {
-    const sumb=0
-    const sums=0
+    this.hidden=!this.hidden
     const uidData: string | null = localStorage.getItem("Uid");
     // const uidUnknown: unknown = uidData;
     // const uidNumber: number = uidUnknown as number;
@@ -247,65 +247,11 @@ export class HomeComponent implements OnInit{
     console.log("6 - Uid",this.uid)
     this.backservice.status(this.uid).subscribe((valu: any)=>{
       console.log(valu)
-
+      this.ary=valu
     }
 
     )
   }
-
-  //   this.backservice.getstatus(this.email).subscribe((value: any) => {
-  //     if (this.click == 0) {
-  //       console.log("get status (if) condition is called");
-  //       const box = document.getElementById('stocklist');
-  //       const box2 = document.getElementById('overall');
-  //       const el3 = document.createElement('div');
-  //       el3.setAttribute("id", "forclickremove1");
-  //       const el4 = document.createElement('div');
-  //       el4.setAttribute("id", "forclickremove2");
-  //       for (const element of value["inddif"]) {
-  //         let color = "";
-  //         if (element['diff'] >= 0) {
-  //           color = "success";
-  //         } else {
-  //           color = "danger";
-  //         }
-  //         const el = document.createElement('li');
-  //         el.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
-  //         el.innerHTML = `${element['name']}
-  //         <span class="badge bg-primary rounded-pill">${element['qty']}</span>
-  //         <span class="badge bg-${color} rounded-pill">${element['diff']}</span>`;
-  //         el3?.appendChild(el);
-  //       }
-  //       box?.appendChild(el3);
-  //       console.log(value["P&L"]);
-  //       const el2 = document.createElement('div');
-  //       el2.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
-  //       if (parseInt(value["P&L"]) >= 0) {
-  //         el2.innerHTML = `<div class="card opacity-75 text-bg-success mb-3 mx-auto" style="max-width: 24rem;">
-  //           <div class="card-header">OVERALL</div>
-  //           <div class="card-body">
-  //             <h5 class="card-title">Profit of ${value["P&L"]}</h5>
-  //           </div>
-  //         </div>`;
-  //       } else {
-  //         el2.innerHTML = `<div class="card opacity-75 text-bg-danger mb-3 mx-auto" style="max-width: 24rem;">
-  //           <div class="card-header">OVERALL</div>
-  //           <div class="card-body">
-  //             <h5 class="card-title">Loss of ${value["P&L"]}</h5>
-  //           </div>
-  //         </div>`;
-  //       }
-  //       el4?.append(el2);
-  //       box2?.appendChild(el4);
-  //       this.click = 1;
-  //     } else {
-  //       document.getElementById('forclickremove1')?.remove();
-  //       document.getElementById('forclickremove2')?.remove();
-  //       this.click = 0;
-  //     }
-  //   });
-  // }
-  
 
 // ****************************** SELL STOCK FUNCTION **********************************
 
