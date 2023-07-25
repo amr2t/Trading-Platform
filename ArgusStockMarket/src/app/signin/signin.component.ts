@@ -41,7 +41,8 @@ export class SigninComponent implements OnInit
           console.log(data)
           localStorage.setItem("unm",Form.value.email.toString())
           if(Form.value.password===data.password)
-          {
+          { 
+            localStorage.setItem("status","true")
             console.log("3")
             this.temp=data.uid
             localStorage.setItem("Uid",this.temp.toString())

@@ -23,6 +23,12 @@ export class BackService {
   //   this.email=msg;
   // }
 
+  // Auth ka Logged In
+
+  isLoggedin(){
+    return !!localStorage.getItem("status")
+  }
+
   // ****************** GET PRICE**************************************
 
   getprice(name: any): Observable<any> {

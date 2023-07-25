@@ -312,8 +312,7 @@ sellstock(Form: FormGroup) {
   // ********************** LOGOUT FUNCTION ***********************************
   
   logout() {
-    ls.remove("Uid");
-    ls.remove("unm")
+    ls.clear()
     this.router.navigateByUrl('/');
   }
 }
