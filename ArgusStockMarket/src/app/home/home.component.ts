@@ -36,6 +36,8 @@ export class HomeComponent implements OnInit{
   stknm:string='';
   amount:number=0;
   uid:any;
+  unm:any;
+  ary:any;
   
   stocknames  = [
     { name: "HDFC Bank", sname: "hdb", proname:"NYSE:HDB" },
@@ -99,6 +101,8 @@ export class HomeComponent implements OnInit{
     stock: new FormControl('Select Your Stock', [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
     qty: new FormControl('--', [Validators.required, Validators.minLength(1)]),
     })
+
+    this.unm=localStorage.getItem("unm")
   }
 
   // ************************ SHOW PRICE FUNCTION ***********************************
@@ -196,7 +200,7 @@ export class HomeComponent implements OnInit{
       const uidNumber: number = uidUnknown as number;
       this.uid = <string>uidData
       console.log("6 - Uid",this.uid)
-      this.backservice.adduser(this.date, this.quantity, this.amount, this.uid, this.stknm).subscribe((values: any) => {
+      this.backservice.adduser(this.date, this.uid, this.stknm, this.quantity, this.amount,true).subscribe((values: any) => {
         console.log("7 - Final Buy Api",values);
       }
       );
@@ -234,58 +238,73 @@ export class HomeComponent implements OnInit{
   //*********************** GET THE STATUS OF USER BUYING FUNCTION *************************** 
 
   status() {
-    this.backservice.getstatus(this.email).subscribe((value: any) => {
-      if (this.click == 0) {
-        console.log("get status (if) condition is called");
-        const box = document.getElementById('stocklist');
-        const box2 = document.getElementById('overall');
-        const el3 = document.createElement('div');
-        el3.setAttribute("id", "forclickremove1");
-        const el4 = document.createElement('div');
-        el4.setAttribute("id", "forclickremove2");
-        for (const element of value["inddif"]) {
-          let color = "";
-          if (element['diff'] >= 0) {
-            color = "success";
-          } else {
-            color = "danger";
-          }
-          const el = document.createElement('li');
-          el.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
-          el.innerHTML = `${element['name']}
-          <span class="badge bg-primary rounded-pill">${element['qty']}</span>
-          <span class="badge bg-${color} rounded-pill">${element['diff']}</span>`;
-          el3?.appendChild(el);
-        }
-        box?.appendChild(el3);
-        console.log(value["P&L"]);
-        const el2 = document.createElement('div');
-        el2.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
-        if (parseInt(value["P&L"]) >= 0) {
-          el2.innerHTML = `<div class="card opacity-75 text-bg-success mb-3 mx-auto" style="max-width: 24rem;">
-            <div class="card-header">OVERALL</div>
-            <div class="card-body">
-              <h5 class="card-title">Profit of ${value["P&L"]}</h5>
-            </div>
-          </div>`;
-        } else {
-          el2.innerHTML = `<div class="card opacity-75 text-bg-danger mb-3 mx-auto" style="max-width: 24rem;">
-            <div class="card-header">OVERALL</div>
-            <div class="card-body">
-              <h5 class="card-title">Loss of ${value["P&L"]}</h5>
-            </div>
-          </div>`;
-        }
-        el4?.append(el2);
-        box2?.appendChild(el4);
-        this.click = 1;
-      } else {
-        document.getElementById('forclickremove1')?.remove();
-        document.getElementById('forclickremove2')?.remove();
-        this.click = 0;
-      }
-    });
+    const sumb=0
+    const sums=0
+    const uidData: string | null = localStorage.getItem("Uid");
+    // const uidUnknown: unknown = uidData;
+    // const uidNumber: number = uidUnknown as number;
+    this.uid = uidData
+    console.log("6 - Uid",this.uid)
+    this.backservice.status(this.uid).subscribe((valu: any)=>{
+      console.log(valu)
+
+    }
+
+    )
   }
+
+  //   this.backservice.getstatus(this.email).subscribe((value: any) => {
+  //     if (this.click == 0) {
+  //       console.log("get status (if) condition is called");
+  //       const box = document.getElementById('stocklist');
+  //       const box2 = document.getElementById('overall');
+  //       const el3 = document.createElement('div');
+  //       el3.setAttribute("id", "forclickremove1");
+  //       const el4 = document.createElement('div');
+  //       el4.setAttribute("id", "forclickremove2");
+  //       for (const element of value["inddif"]) {
+  //         let color = "";
+  //         if (element['diff'] >= 0) {
+  //           color = "success";
+  //         } else {
+  //           color = "danger";
+  //         }
+  //         const el = document.createElement('li');
+  //         el.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
+  //         el.innerHTML = `${element['name']}
+  //         <span class="badge bg-primary rounded-pill">${element['qty']}</span>
+  //         <span class="badge bg-${color} rounded-pill">${element['diff']}</span>`;
+  //         el3?.appendChild(el);
+  //       }
+  //       box?.appendChild(el3);
+  //       console.log(value["P&L"]);
+  //       const el2 = document.createElement('div');
+  //       el2.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
+  //       if (parseInt(value["P&L"]) >= 0) {
+  //         el2.innerHTML = `<div class="card opacity-75 text-bg-success mb-3 mx-auto" style="max-width: 24rem;">
+  //           <div class="card-header">OVERALL</div>
+  //           <div class="card-body">
+  //             <h5 class="card-title">Profit of ${value["P&L"]}</h5>
+  //           </div>
+  //         </div>`;
+  //       } else {
+  //         el2.innerHTML = `<div class="card opacity-75 text-bg-danger mb-3 mx-auto" style="max-width: 24rem;">
+  //           <div class="card-header">OVERALL</div>
+  //           <div class="card-body">
+  //             <h5 class="card-title">Loss of ${value["P&L"]}</h5>
+  //           </div>
+  //         </div>`;
+  //       }
+  //       el4?.append(el2);
+  //       box2?.appendChild(el4);
+  //       this.click = 1;
+  //     } else {
+  //       document.getElementById('forclickremove1')?.remove();
+  //       document.getElementById('forclickremove2')?.remove();
+  //       this.click = 0;
+  //     }
+  //   });
+  // }
   
 
 // ****************************** SELL STOCK FUNCTION **********************************
@@ -293,37 +312,54 @@ export class HomeComponent implements OnInit{
 sellstock(Form: FormGroup) {
   let color = "danger";
   let quote = "loss";
-  this.backservice.sell(this.email, Form.value.stock, Form.value.qty).subscribe((value: any) => {
-    if (value["pl"] != "Please enter correct name or qty") {
-      this.pl = value["pl"];
-      console.log(typeof value["pl"]);
-      if (parseInt(this.pl) > 0) {
-        color = "success";
-        quote = "profit";
+  this.currentDate = new Date().getDate();
+    this.currentmonth = new Date().getMonth()+1;
+    this.currentyear = new Date().getFullYear();
+    this.date = this.currentyear+"-"+this.currentmonth+"-"+this.currentDate
+    console.log("1 - Date",this.date)
+    this.quantity = Form.value.qty;
+    console.log("2 - Quantity",this.quantity)
+
+    this.stknm = Form.value.stock;
+    console.log("3 - Stock",this.stknm)
+    
+    this.backservice.getprice(this.stknm).subscribe({
+      next:
+      (res: any) => {
+      this.val$ = res;
+      console.log("4 - Response Of Price Api",this.val$)
+      this.amount = Form.value.qty * parseInt(this.val$["Global Quote"]["05. price"]) * 82.17;
+      console.log("5 - Amount",this.amount)
+    },
+    error: (error)=>{
+      console.log(error);
+      
+    },
+    complete : ()=>
+    {
+      const uidData: string | null = localStorage.getItem("Uid");
+      const uidUnknown: unknown = uidData;
+      const uidNumber: number = uidUnknown as number;
+      this.uid = <string>uidData
+      console.log("6 - Uid",this.uid)
+      this.backservice.sell(this.date, this.uid, this.stknm, this.quantity, this.amount,false).subscribe((values: any) => {
+        console.log("7 - Final Buy Api",values);
       }
-      const box = document.getElementById('pl');
-      const el = document.createElement('li');
-      el.setAttribute("class", `list-group-item list-group-item-${color}`);
-      el.innerHTML = `You have sold with a ${quote} of ${this.pl}`;
-      box?.append(el);
-      Form.reset();
-      if (this.click == 1) {
-        document.getElementById('forclickremove1')?.remove();
-        document.getElementById('forclickremove2')?.remove();
-        this.click = 0;
-        this.status();
-      }
-    } else {
-      const box1 = document.getElementById("alertnq");
-      const el1 = document.createElement('div');
-      el1.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-        Please enter correct name or quantity
-       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-     </div>`;
-      box1?.append(el1);
-      Form.reset();
+      );
+         const box1 = document.getElementById("alertnq")
+          const el1 = document.createElement('div');
+          el1.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          Successfully Selled!!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+          box1?.append(el1);
+         document.getElementById('forclickremove1')?.remove();
+         document.getElementById('forclickremove2')?.remove();
+         this.click = 0;
+         this.status();
+         this.myForm.reset();
     }
-  });
+  })
 }
 
 
@@ -331,6 +367,7 @@ sellstock(Form: FormGroup) {
   
   logout() {
     ls.remove("Uid");
+    ls.remove("unm")
     this.router.navigateByUrl('/');
   }
 }

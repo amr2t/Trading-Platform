@@ -39,6 +39,7 @@ export class SigninComponent implements OnInit
           console.log("2")
           console.log(data.uid)
           console.log(data)
+          localStorage.setItem("unm",Form.value.email.toString())
           if(Form.value.password===data.password)
           {
             console.log("3")

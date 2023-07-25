@@ -1,4 +1,4 @@
-<div class="cover">
+<!-- <div class="cover">
   <div class="cover-caption">
     <button type="button" (click)="logout()" class="btn btn-outline-light pull-left"> LOGOUT </button>
     <button type="button" class="btn btn-outline-light">Light</button>
@@ -6,7 +6,7 @@
     <div class="container">
       <div class="fsr">
         <div class="frm">
-          <form  id="frmo" class="justify-content-center" [formGroup]="myForm" (ngSubmit)="add_userdetail(myForm)">
+          <form  id="frmo" class="justify-content-center" [formGroup]="myForm" (ngSubmit)="add_userdetail(myForm)"> -->
             <!-- <div class="form-group --stockname">
               <label>Stock Name</label>
               <select style="color:black" [(ngModel)]="stck" class="form-control custom-select col-sm-4" formControlName="stock" name="stock" required text-color="black">
@@ -14,7 +14,7 @@
                 <option *ngFor="let stockname of stocknames" [value]="stockname.proname">{{stockname.name}}</option>
               </select>
             </div> -->
-            <div class="form-group --stockname">
+            <!-- <div class="form-group --stockname">
               <label>Stock Name</label>
               <select [(ngModel)]="stck" class="form-control custom-select col-sm-4" formControlName="stock" name="stock" required>
                 <option value="" disabled selected>Select A Stock</option>
@@ -47,11 +47,7 @@
 
                 
               <div style="min-height: 120px;">
-                <div class="collapse collapse-horizontal" id="collapseWidthExample1">
-                  <ul class="list-group">
-                    <li class="list-group-item list-group-item-info">Stock price: {{price}}</li>
-                  </ul>
-                </div>
+                
               </div>
             </div>
           </form>
@@ -146,4 +142,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

@@ -10,7 +10,11 @@
 }
 
 #lgbtn{
-    float: left;
+    float: right;
+}
+
+h3{
+    color: white;
 }
 
 #cover-caption {

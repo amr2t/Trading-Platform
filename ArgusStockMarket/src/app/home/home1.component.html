@@ -1,11 +1,10 @@
 <section  id="cover" class="min-vh-100">
     <div id="cover-caption">
       <div class="container ">
-        <!-- <button type="button" class="btn btn-outline-light">Rohit</button> -->
         <br>
+        <h3>Welcome User {{unm}}</h3>
         <button type="button" (click)="logout()" class="btn btn-outline-light" id="lgbtn"> LOGOUT </button>
         <br><br>
-        <!-- TradingView Widget BEGIN -->
         <!-- TradingView Widget BEGIN -->
         <div class="tradingview-widget-container">
           <div class="tradingview-widget-container__widget_tape"></div>
@@ -52,32 +51,16 @@
                         aria-controls="collapseWidthExample1">CHECK PRICE</button>
                       <button type="button" (click)="status()"
                         class="btn btn-dark btn-lg mt-3 mx-3 --status">STATS-HISTORY</button>
-                        
-                      <p></p>
-                      <div>
-                        <label for="price"> The Price Of Stock Is Rs {{price}}</label>
-                      </div>
+
                       <br><br>
-                      <div>
-                        <label for="prediction"> The Price Of Stock May {{prediction}}</label>
-                      </div>
-                      
-                      <div style="min-height: 120px;">
-                        <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                          <ul class="list-group" id="pl">
-  
-                          </ul>
-                        </div>
-                      </div>
-                      <p></p>
-                      <div style="min-height: 120px;">
-                        <div class="collapse collapse-horizontal" id="collapseWidthExample1">
-                          <ul class="list-group">
-                            <li class="list-group-item list-group-item-info">Stock price: {{price}}</li>
-                          </ul>
-                        </div>
-                      </div>
                     </div>
+                      <div>
+                        <span class="btn btn-warning"> The Price Of Stock Is Rs {{price}} </span>
+                        <br><br>
+                        <span class="btn btn-info" for="prediction"> The Price Of Stock May {{prediction}}</span>
+                      </div>
+                     
+
                   </form>
   
                 </div>
@@ -104,6 +87,38 @@
             </div>
           </div>
         </div>
+        <!-- table -->
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table class="table table-info table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">pid</th>
+                <th scope="col">Stock Name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Amount</th>
+                <th scope="col">Type</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <ng-container *ngFor="let m of ary">
+                <tr>
+                  <td>{{m.pid}}</td>
+                  <td>{{m.stockName}}</td>
+                  <td>{{m.buyingDate}}</td>
+                  <td>{{m.quantity}}</td>
+                  <td>{{m.totalAmount}}</td>
+                  <td >
+                    <ng-container *ngIf="m.bs; else sellTemplate">Buy</ng-container>
+                    <ng-template #sellTemplate>Sell</ng-template>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+
       </div>
       
     </div>

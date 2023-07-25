@@ -38,37 +38,46 @@ export class BackService {
 
 // ********************* ADDUSER OR BUY FUNCTION**************************************
 
-  // adduser(_currentDate:any,qty:any,invested:any,uid:any,stock:any):Observable<object>{
-  //   console.log("Add user function is called...");
-  //   return this._http.post<any>("http://localhost:8080/addStock",{datbuyingDate:_currentDate,quantity:qty,totalAmount:invested,user_uid:uid,stockName:stock}); 
-  // }
-
-  adduser(buyingDate: string, quantity: number, totalAmount: number, uid: any, stockName: string): Observable<any> {
+  adduser(buyingDate: string, uid: any, stockName: string,quantity: number, totalAmount: number,bs: boolean): Observable<any> {
     const requestBody = {
       buyingDate: buyingDate,
-      quantity: quantity,
-      totalAmount: totalAmount,
       user: {
         uid: uid
       },
-      stockName: stockName
+      stockName: stockName,
+      quantity: quantity,
+      totalAmount: totalAmount,
+      bs:bs
     };
+
+
     console.log("Add user function is called...");
     return this._http.post<any>("http://localhost:8080/addStock", requestBody);
   }
 
   // ************** GET STATUS *****************************************
 
-  getstatus(email:any):Observable<object>{
+  status(uid:any):Observable<object>{
     console.log("Get status is called");
-    return this._http.get(`http://localhost:8080/getstatus?id=${email}`)
+    return this._http.get(`http://localhost:8080/showStocks/${uid}`)
   }
 
   // ****************** SELL ******************************************
 
-  sell(email:any,stock:any,qty:any):Observable<object>{
+  sell(buyingDate: string, uid: any, stockName: string,quantity: number, totalAmount: number,bs:boolean):Observable<object>{
+    const requestBody = {
+      buyingDate: buyingDate,
+      user: {
+        uid: uid
+      },
+      stockName: stockName,
+      quantity: quantity,
+      totalAmount: totalAmount,
+      bs:bs
+    };
+
     console.log("Back service of email is called");
-    return this._http.post("http://localhost:8080/sellStocks/{pid}",{id:email,name:stock,qty:qty});
+    return this._http.post("http://localhost:8080/sellStocks",requestBody);
   }
 
   // ***************** LOGIN ******************************************
@@ -82,10 +91,6 @@ export class BackService {
 
     console.log("back service login function called..."+email+password);
     return this._http.post("http://localhost:8080/login",requestBody);
-
-    
-    // console.log("Add user function is called...");
-    // return this._http.post<any>("http://localhost:8080/addStock", requestBody);
 
   }
 
