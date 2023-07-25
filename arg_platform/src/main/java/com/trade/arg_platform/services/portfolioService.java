@@ -44,4 +44,8 @@ public class portfolioService {
 
     }
 
+//    public double getAmount(long uid) {
+//        return portfolioRepo.amount(uid);
+//    }
+
 }

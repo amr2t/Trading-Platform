@@ -41,4 +41,5 @@ public class portfolioController {
     {
         return portfolioService.showStocks(uid);
     }
+
 }
