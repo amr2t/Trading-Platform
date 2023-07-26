@@ -252,8 +252,8 @@ export class HomeComponent implements OnInit{
          document.getElementById('forclickremove1')?.remove();
          document.getElementById('forclickremove2')?.remove();
          this.click = 0;
-         this.status();
          this.myForm.reset();
+         
        }
     }
   })
@@ -273,6 +273,7 @@ export class HomeComponent implements OnInit{
     this.backservice.status(this.uid).subscribe((valu: any)=>{
       console.log(valu)
       this.ary=valu
+      this.pl=0
       for (let x of this.ary) {
         if(x.bs===true)
         {
@@ -337,8 +338,8 @@ sellstock(Form: FormGroup) {
          document.getElementById('forclickremove1')?.remove();
          document.getElementById('forclickremove2')?.remove();
          this.click = 0;
-         this.status();
          this.myForm.reset();
+         
     }
   })
 }
