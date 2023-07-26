@@ -13,6 +13,12 @@
     float: right;
 }
 
+.widgetsoftv{
+    background-color: black;
+    display:inline-flex
+    
+}
+
 h3{
     color: white;
 }
@@ -22,6 +28,11 @@ h3{
     height: 100%;
     position: relative;
     z-index: 4;
+}
+.container{
+    width: 100%;
+    height: 100%;
+   
 }
 
 /* only used for background overlay not needed for centering */

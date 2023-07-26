@@ -114,6 +114,11 @@ export class HomeComponent implements OnInit{
   {
     divElement.innerHTML = '';
   }
+  const divElement1 = document.getElementById('myDiv1');
+  if (divElement1) 
+  {
+    divElement1.innerHTML = '';
+  }
     console.log("1")
     this.stock = Form.value.stock;
     console.log(this.stock)
@@ -149,18 +154,37 @@ export class HomeComponent implements OnInit{
     script.innerHTML = JSON.stringify(
     {
       "symbol": this.selectedProname,
-      "width": "100%",
-      "height": 320,
+      "width": 400,
+      "height": 450,
       "locale": "in",
       "dateRange": "12M",
       "colorTheme": "dark",
-      "isTransparent": false,
+      "isTransparent": true,
       "autosize": false,
       "largeChartUrl": ""
     });
 
     const container = document.getElementsByClassName('tradingview-widget-container__widget')[0];
     container.appendChild(script);
+
+    const script1 = document.createElement('script');
+    script1.type = 'text/javascript';
+    script1.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
+    script1.async = true;
+    script1.innerHTML = JSON.stringify(
+    {
+    "interval": "1D",
+    "width": 425,
+    "isTransparent": true,
+    "height": 450,
+    "symbol": this.selectedProname,
+    "showIntervalTabs": true,
+    "locale": "in",
+    "colorTheme": "dark"
+  })
+  const container1 = document.getElementsByClassName('tradingview-widget-container__widget_meter')[0];
+  container1.appendChild(script1);
+
     // const [predictionResult, apiResponse] = this.backservice.predict();
     // this.prediction=predictionResult
   }  

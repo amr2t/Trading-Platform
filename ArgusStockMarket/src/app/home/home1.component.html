@@ -67,20 +67,28 @@
           </div>
           <div class="col">
             <div class="row text-white">
-              <div class=" form p-4">
+              <div class=" form p-7">
                 <h1 class="display-4 py-2 text-truncate">STATUS
                 </h1>
-                <!-- TradingView Widget BEGIN -->
-                <div class="tradingview-widget-container">
-                  <div id="myDiv" class="tradingview-widget-container__widget"></div>
-                </div>
-                <!-- TradingView Widget END -->
+                <div class="widgetsoftv">
+
+                  <!-- TradingView Widget BEGIN -->
+                  <div class="tradingview-widget-container">
+                    <div id="myDiv" class="tradingview-widget-container__widget"></div>
+                  </div>
+                  <!-- TradingView Widget END -->
+                  
+    
+                  <div class="meter">
+                      <!-- TradingView Widget BEGIN -->
+                      <div class="tradingview-widget-container">
+                        <div id="myDiv1" class="tradingview-widget-container__widget_meter"></div>
+                        <div class="tradingview-widget-copyright"></div>
+                      </div>
+                      <!-- TradingView Widget END -->
+                  </div>
                 
-  
-                <ul class="list-group" id="stocklist">
-                </ul>
-                <p></p>
-                <div id="overall"></div>
+                </div>  
               </div>
             </div>
           </div>
@@ -89,10 +97,18 @@
         <br><br>
         <div *ngIf="hidden">
           <ng-container *ngIf="pl > 0; else sellTemplate">
-            <span class="btn btn-success">Profit: {{ pl }}</span>
+            <span class="btn btn-success">You Have Taken Your Money Back From Market Indicates Profit: {{ pl }}</span>
           </ng-container>
           <ng-template #sellTemplate>
-            <span class="btn btn-danger">Loss: {{ pl }}</span>
+            
+            <ng-container *ngIf="pl === 0; else sellTemplate">
+              <span class="btn btn-warning">No Profit No Loss : {{ pl }}</span>
+            </ng-container>
+            <ng-template #sellTemplate>
+              <span class="btn btn-danger"> Your Money Is Invested In Market Indicates Loss : {{ pl }}</span>
+            </ng-template>
+
+
           </ng-template>
         </div>
           
