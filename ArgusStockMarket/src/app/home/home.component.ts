@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit{
   email: any
   click = 0;
   price = 0;
-  pl: any;
+  pl:number=0;
   prediction: any;
   temp :any
   currentDate:Date|any=null;
@@ -239,6 +239,7 @@ export class HomeComponent implements OnInit{
   //*********************** GET THE STATUS OF USER BUYING FUNCTION *************************** 
 
   status() {
+    
     this.hidden=!this.hidden
     const uidData: string | null = localStorage.getItem("Uid");
     // const uidUnknown: unknown = uidData;
@@ -248,6 +249,16 @@ export class HomeComponent implements OnInit{
     this.backservice.status(this.uid).subscribe((valu: any)=>{
       console.log(valu)
       this.ary=valu
+      for (let x of this.ary) {
+        if(x.bs===true)
+        {
+          this.pl=this.pl-x.totalAmount
+        }
+        else
+        {
+          this.pl=this.pl+x.totalAmount
+        }
+      }
     }
 
     )

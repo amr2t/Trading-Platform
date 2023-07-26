@@ -85,6 +85,18 @@
             </div>
           </div>
         </div>
+
+        <br><br>
+        <div *ngIf="hidden">
+          <ng-container *ngIf="pl > 0; else sellTemplate">
+            <span class="btn btn-success">Profit: {{ pl }}</span>
+          </ng-container>
+          <ng-template #sellTemplate>
+            <span class="btn btn-danger">Loss: {{ pl }}</span>
+          </ng-template>
+        </div>
+          
+        <br><br>
         <!-- table -->
         <div class="table-wrapper-scroll-y my-custom-scrollbar">
           <table class="table table-info table-striped table-hover" *ngIf="hidden" >

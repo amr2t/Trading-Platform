@@ -33,7 +33,7 @@ export class BackService {
 
   getprice(name: any): Observable<any> {
     console.log("getprice service function is called");
-    const apiUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${name}&apikey=7J5EK36H3P8XNYL5`;
+    const apiUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${name}&apikey=TM0KKBA3TUNIU9US`;
   
     return this._http.get(apiUrl).pipe(
       tap((response: any) => {
